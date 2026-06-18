@@ -965,6 +965,479 @@
       margin-top: 10px;
     }
 
+    /* ── Wizard ──────────────────────────────────────── */
+    .wizard-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--r);
+      box-shadow: var(--sh);
+      overflow: hidden;
+    }
+
+    .wizard-steps {
+      display: flex;
+      align-items: center;
+      padding: 22px 40px;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ws {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .ws-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fh);
+      font-weight: 800;
+      font-size: .85rem;
+      transition: all var(--ease);
+    }
+
+    .ws.active .ws-circle {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .ws.done .ws-circle {
+      background: var(--blue);
+      color: var(--white);
+      font-size: 0;
+    }
+
+    .ws.done .ws-circle::after {
+      content: '✓';
+      font-size: .85rem;
+    }
+
+    .ws-label {
+      font-family: var(--fh);
+      font-size: .7rem;
+      font-weight: 600;
+      color: var(--light);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      white-space: nowrap;
+    }
+
+    .ws.active .ws-label,
+    .ws.done .ws-label {
+      color: var(--blue);
+    }
+
+    .ws-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      margin: 0 10px 22px;
+      transition: background var(--ease);
+    }
+
+    .ws-line.done {
+      background: var(--blue);
+    }
+
+    .wizard-step {
+      display: none;
+    }
+
+    .wizard-step.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wizard-step-content {
+      padding: 36px 40px 24px;
+    }
+
+    .wizard-step-title {
+      font-family: var(--fh);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .wizard-step-sub {
+      font-size: .92rem;
+      color: var(--mid);
+      text-align: center;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .freq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .freq-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all var(--ease);
+      background: var(--white);
+    }
+
+    .freq-card:hover {
+      border-color: var(--blue);
+    }
+
+    .freq-card.selected {
+      border-color: var(--blue);
+      background: var(--blue-lt);
+      box-shadow: 0 0 0 3px rgba(43, 131, 208, .1);
+    }
+
+    .freq-card-name {
+      font-family: var(--fh);
+      font-size: .98rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .freq-card-badge {
+      font-size: .7rem;
+      font-weight: 700;
+      background: var(--blue);
+      color: var(--white);
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    .window-types {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .wt-card {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      gap: 14px;
+      transition: border-color var(--ease), background var(--ease);
+    }
+
+    .wt-card.has-count {
+      border-color: var(--blue);
+      background: var(--blue-lt);
+    }
+
+    .wt-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .wt-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .wt-name {
+      font-family: var(--fh);
+      font-weight: 700;
+      font-size: .92rem;
+      color: var(--dark);
+    }
+
+    .wt-sub {
+      font-size: .76rem;
+      color: var(--light);
+      margin-top: 1px;
+    }
+
+    .wt-price {
+      font-family: var(--fh);
+      font-weight: 700;
+      font-size: .8rem;
+      color: var(--blue);
+      margin-top: 3px;
+    }
+
+    .wt-was {
+      text-decoration: line-through;
+      color: var(--mid);
+      font-weight: 400;
+      margin-right: 4px;
+    }
+
+    .wt-counter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .wt-counter button {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: var(--fh);
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--ease);
+      line-height: 1;
+    }
+
+    .wt-counter button:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .wt-counter span {
+      font-family: var(--fh);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--dark);
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .addon-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all var(--ease);
+      margin-top: 10px;
+    }
+
+    .addon-card.selected {
+      border-color: var(--blue);
+      background: var(--blue-lt);
+    }
+
+    .addon-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--white);
+      transition: all var(--ease);
+      flex-shrink: 0;
+    }
+
+    .addon-card.selected .addon-check {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .addon-name {
+      font-family: var(--fh);
+      font-weight: 700;
+      font-size: .92rem;
+      color: var(--dark);
+    }
+
+    .addon-sub {
+      font-size: .76rem;
+      color: var(--light);
+      margin-top: 1px;
+    }
+
+    .wizard-price-bar {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .wizard-price-sub {
+      font-size: .8rem;
+      color: var(--mid);
+    }
+
+    .rut-note {
+      font-size: .72rem;
+      color: var(--blue);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .rut-badge {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 700;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 100px;
+      padding: 2px 8px;
+      vertical-align: middle;
+      margin-left: 6px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .wizard-price-amount {
+      font-family: var(--fh);
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--dark);
+      text-align: right;
+    }
+
+    .bar-was {
+      display: block;
+      font-size: .75rem;
+      font-weight: 400;
+      text-decoration: line-through;
+      color: var(--mid);
+      line-height: 1.2;
+    }
+
+    .wizard-nav {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-toggle {
+      display: flex;
+      background: var(--bg-alt);
+      border-radius: 100px;
+      padding: 4px;
+      margin-bottom: 24px;
+      width: fit-content;
+    }
+
+    .ct-btn {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 100px;
+      font-family: var(--fh);
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: var(--mid);
+      transition: all var(--ease);
+    }
+
+    .ct-btn.active {
+      background: var(--white);
+      color: var(--dark);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+    }
+
+    .s3-price-summary {
+      background: var(--bg-alt);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-top: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .s3-price-header {
+      font-family: var(--fh);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 12px;
+    }
+
+    .s3-price-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: .88rem;
+      color: var(--mid);
+      padding: 4px 0;
+    }
+
+    .s3-price-row span:last-child {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .s3-price-total {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--fh);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--dark);
+      padding-top: 10px;
+      margin-top: 6px;
+      border-top: 1.5px solid var(--border);
+    }
+
+    .s3-price-total span:last-child {
+      color: var(--blue);
+      font-size: 1.2rem;
+    }
+
+    .s3-price-yearly {
+      text-align: right;
+      font-size: .78rem;
+      color: var(--blue);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .s3-was-total {
+      text-decoration: line-through;
+      font-size: .82rem;
+      font-weight: 400;
+      color: var(--mid);
+      line-height: 1.3;
+    }
+
+    .s3-savings-note {
+      margin-top: 8px;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--sale);
+      text-align: right;
+    }
+
     /* ── Checkbox / radio groups ─── */
     .check-group {
       display: flex;
@@ -1191,10 +1664,6 @@
         grid-column: span 2;
       }
 
-      .quote-form-wrap {
-        padding: 28px 20px;
-      }
-
       .form-grid {
         grid-template-columns: 1fr;
       }
@@ -1205,6 +1674,22 @@
 
       .fg-full-border {
         grid-column: span 1;
+      }
+
+      .wizard-step-content {
+        padding: 28px 24px 16px;
+      }
+
+      .wizard-price-bar {
+        padding: 12px 24px;
+      }
+
+      .wizard-nav {
+        padding: 16px 24px;
+      }
+
+      .wizard-steps {
+        padding: 18px 24px;
       }
 
       .contact-inner {
@@ -1262,7 +1747,7 @@
 
   <!-- SALE BANNER -->
   <div class="sale-banner">
-    🌸 &nbsp;VÅR-REA – 15% rabatt på alla fönsterputsar just nu! &nbsp;<a href="#offert">Boka idag →</a>
+    ☀️ &nbsp;JUNI-REA – 15% rabatt på alla fönsterputsar! Begränsat erbjudande – passa på. &nbsp;<a href="#offert">Boka nu →</a>
   </div>
 
   <!-- NAVBAR -->
@@ -1639,222 +2124,199 @@
   <section class="quote" id="offert">
     <div class="container">
       <div class="section-header fade-up">
-        <span class="eyebrow">Prisförslag</span>
-        <h2>Få din offert – gratis</h2>
-        <p>Fyll i formuläret så återkommer vi med ett tydligt pris inom 24 timmar. Ingen förpliktelse, inga
-          konstigheter.</p>
+        <span class="eyebrow">Boka nu</span>
+        <h2>Boka din fönsterputs</h2>
+        <p>Se ditt pris direkt och boka ett datum – klart på 2 minuter.</p>
       </div>
 
-      <div class="quote-tabs fade-up" id="quoteTabs">
-        <button class="tab-btn active" onclick="setTab('privat')">Privatperson</button>
-        <button class="tab-btn" onclick="setTab('foretag')">Företag</button>
-      </div>
+      <div class="wizard-card fade-up">
 
-      <div class="quote-form-wrap fade-up">
+        <!-- Step progress -->
+        <div class="wizard-steps">
+          <div class="ws active" id="ws-1">
+            <div class="ws-circle" id="wsc-1">1</div>
+            <div class="ws-label">Detaljer</div>
+          </div>
+          <div class="ws-line" id="wl-1"></div>
+          <div class="ws" id="ws-2">
+            <div class="ws-circle" id="wsc-2">2</div>
+            <div class="ws-label">Dag &amp; Tid</div>
+          </div>
+        </div>
 
-        <!-- PRIVAT FORM -->
-        <form id="form-privat" class="q-form active" onsubmit="handleSubmit(event,'privat')">
-          <div class="form-grid">
-
-            <!-- Window counts -->
-            <div class="fg">
-              <label>Antal fönster *</label>
-              <input type="number" name="antal_fonster" min="1" placeholder="t.ex. 12" required>
+        <!-- Step 1: Window details -->
+        <div class="wizard-step active" id="step-1">
+          <div class="wizard-step-content">
+            <h3 class="wizard-step-title">Dina fönster</h3>
+            <p class="wizard-step-sub">Ange hur många fönster du har av varje typ.</p>
+            <div class="window-types">
+              <div class="wt-card" id="wt-w2">
+                <div class="wt-icon">🪟</div>
+                <div class="wt-info">
+                  <div class="wt-name">Utan spröjs – 2-sidig</div>
+                  <div class="wt-sub">Ej öppningsbar</div>
+                  <div class="wt-price"><span class="wt-was">70 kr</span> 60 kr / fönster</div>
+                </div>
+                <div class="wt-counter">
+                  <button type="button" onclick="adjust('w2',-1)">−</button>
+                  <span id="w2-val">0</span>
+                  <button type="button" onclick="adjust('w2',1)">+</button>
+                </div>
+              </div>
+              <div class="wt-card" id="wt-ws2">
+                <div class="wt-icon">🪟</div>
+                <div class="wt-info">
+                  <div class="wt-name">Med spröjs – 2-sidig</div>
+                  <div class="wt-sub">Ej öppningsbar med spröjs</div>
+                  <div class="wt-price"><span class="wt-was">95 kr</span> 80 kr / fönster</div>
+                </div>
+                <div class="wt-counter">
+                  <button type="button" onclick="adjust('ws2',-1)">−</button>
+                  <span id="ws2-val">0</span>
+                  <button type="button" onclick="adjust('ws2',1)">+</button>
+                </div>
+              </div>
+              <div class="wt-card" id="wt-w4">
+                <div class="wt-icon">🪟</div>
+                <div class="wt-info">
+                  <div class="wt-name">Utan spröjs – 4-sidig</div>
+                  <div class="wt-sub">Öppningsbar</div>
+                  <div class="wt-price"><span class="wt-was">120 kr</span> 100 kr / fönster</div>
+                </div>
+                <div class="wt-counter">
+                  <button type="button" onclick="adjust('w4',-1)">−</button>
+                  <span id="w4-val">0</span>
+                  <button type="button" onclick="adjust('w4',1)">+</button>
+                </div>
+              </div>
+              <div class="wt-card" id="wt-ws4">
+                <div class="wt-icon">🪟</div>
+                <div class="wt-info">
+                  <div class="wt-name">Med spröjs – 4-sidig</div>
+                  <div class="wt-sub">Öppningsbar med spröjs</div>
+                  <div class="wt-price"><span class="wt-was">175 kr</span> 150 kr / fönster</div>
+                </div>
+                <div class="wt-counter">
+                  <button type="button" onclick="adjust('ws4',-1)">−</button>
+                  <span id="ws4-val">0</span>
+                  <button type="button" onclick="adjust('ws4',1)">+</button>
+                </div>
+              </div>
             </div>
-            <div class="fg">
-              <label>Antal fönster MED spröjs</label>
-              <input type="number" name="antal_sprojs" min="0" placeholder="t.ex. 4">
+            <div class="addon-card" id="karm-card" onclick="toggleKarm()">
+              <div class="addon-check" id="karm-check"></div>
+              <div>
+                <div class="addon-name">Karmtvätt</div>
+                <div class="addon-sub">Rengöring av karmar &amp; fönsterbänkar &nbsp;·&nbsp; +20 kr / fönster</div>
+              </div>
+            </div>
+          </div>
+          <div class="wizard-price-bar">
+            <div>
+              <div class="wizard-price-sub" id="step1-price-sub">Ange antal fönster ovan</div>
+              <div class="rut-note">Pris efter RUT-avdrag (50%)</div>
+            </div>
+            <div class="wizard-price-amount" id="step1-price-amount">— kr</div>
+          </div>
+          <div class="wizard-nav">
+            <div></div>
+            <button class="btn btn-primary" id="step1-next" onclick="goStep(2)" disabled>Nästa steg →</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Contact + Booking -->
+        <div class="wizard-step" id="step-2">
+          <div class="wizard-step-content">
+
+            <div class="contact-toggle">
+              <button type="button" class="ct-btn active" onclick="setContactType('priv',this)">Privatperson</button>
+              <button type="button" class="ct-btn" onclick="setContactType('fore',this)">Företag</button>
             </div>
 
-            <!-- Window type -->
-            <div class="fg full">
-              <span class="form-section-label">Typ av fönster *</span>
-              <div class="check-group">
-                <label class="check-label">
-                  <input type="checkbox" name="typ_fonster" value="Enkelglas (Dubbelsidig puts)">
-                  Enkelglas (Dubbelsidig puts)
-                </label>
-                <label class="check-label">
-                  <input type="checkbox" name="typ_fonster" value="Dubbelglas (Fyrsidig puts)">
-                  Dubbelglas (Fyrsidig puts)
-                </label>
-                <label class="check-label">
-                  <input type="checkbox" name="typ_fonster" value="Annat">
-                  Annat (Övrig info)
-                </label>
+            <div id="ct-priv">
+              <div class="form-grid">
+                <div class="fg">
+                  <label>Förnamn *</label>
+                  <input type="text" id="s3-fornamn" placeholder="Anna" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>Efternamn *</label>
+                  <input type="text" id="s3-efternamn" placeholder="Andersson" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>Telefon *</label>
+                  <input type="tel" id="s3-telefon" placeholder="07X-XXX XX XX" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>E-post *</label>
+                  <input type="email" id="s3-epost" placeholder="anna@exempel.se" oninput="checkStep2()">
+                </div>
+                <div class="fg full">
+                  <label>Adress *</label>
+                  <input type="text" id="s3-adress" placeholder="Storgatan 1, Stockholm" oninput="checkStep2()">
+                </div>
+                <div class="fg full">
+                  <label>Övrig information</label>
+                  <textarea id="s3-ovrig" placeholder="Takfönster, svåra partier eller önskemål..."></textarea>
+                </div>
               </div>
             </div>
 
-            <!-- Special areas -->
-            <div class="fg">
-              <label>Inglasad balkong – antal fönster</label>
-              <input type="number" name="balkong" min="0" placeholder="Antal fönster">
-            </div>
-            <div class="fg">
-              <label>Uterum – antal fönster</label>
-              <input type="number" name="uterum" min="0" placeholder="Antal fönster">
-            </div>
-
-            <!-- Karmtvätt -->
-            <div class="fg full">
-              <span class="form-section-label">Önskas karmtvätt? *</span>
-              <div class="check-group" style="flex-direction:row; gap:24px;">
-                <label class="check-label">
-                  <input type="radio" name="karmtvatt" value="Ja" required> Ja
-                </label>
-                <label class="check-label">
-                  <input type="radio" name="karmtvatt" value="Nej"> Nej
-                </label>
+            <div id="ct-fore" style="display:none;">
+              <div class="form-grid">
+                <div class="fg full">
+                  <label>Företag *</label>
+                  <input type="text" id="s3-foretag" placeholder="Ditt AB" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>Organisationsnummer *</label>
+                  <input type="text" id="s3-orgnummer" placeholder="10 siffror" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>Kontaktperson *</label>
+                  <input type="text" id="s3-kontakt" placeholder="Namn" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>Telefon *</label>
+                  <input type="tel" id="s3-fore-telefon" placeholder="07X-XXX XX XX" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>E-post *</label>
+                  <input type="email" id="s3-fore-epost" placeholder="info@dittforetag.se" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>Adress *</label>
+                  <input type="text" id="s3-fore-adress" placeholder="Storgatan 1" oninput="checkStep2()">
+                </div>
+                <div class="fg">
+                  <label>Postnummer *</label>
+                  <input type="text" id="s3-postnummer" placeholder="123 45" oninput="checkStep2()">
+                </div>
+                <div class="fg full">
+                  <label>Övrig information</label>
+                  <textarea id="s3-fore-ovrig" placeholder="Fasad, höjder, återkommande schema..."></textarea>
+                </div>
               </div>
             </div>
 
-            <!-- Notes -->
-            <div class="fg full">
-              <label>Övrig information</label>
-              <textarea name="ovrig_info"
-                placeholder="Berätta gärna om svåra partier, takfönster, höjder eller annat vi bör veta."></textarea>
-            </div>
-
-            <!-- Divider -->
-            <div class="fg-full-border"></div>
-
-            <!-- Personal info -->
-            <div class="fg">
-              <label>Förnamn *</label>
-              <input type="text" name="fornamn" placeholder="Anna" required>
-            </div>
-            <div class="fg">
-              <label>Efternamn *</label>
-              <input type="text" name="efternamn" placeholder="Andersson" required>
-            </div>
-            <div class="fg">
-              <label>Telefon *</label>
-              <input type="tel" name="telefon" placeholder="07X-XXX XX XX" required>
-            </div>
-            <div class="fg">
-              <label>E-post *</label>
-              <input type="email" name="epost" placeholder="anna@exempel.se" required>
-            </div>
-            <div class="fg">
-              <label>Personnummer</label>
-              <input type="text" name="personnummer" placeholder="ÅÅMMDD-XXXX">
-            </div>
-            <div class="fg">
-              <label>Adress *</label>
-              <input type="text" name="adress" placeholder="Storgatan 1, Stockholm" required>
+            <div class="s3-price-summary">
+              <div class="s3-price-header">Din offert <span class="rut-badge">efter RUT-avdrag</span></div>
+              <div id="step2-price-breakdown"></div>
             </div>
 
           </div>
-          <div class="form-submit">
-            <button type="submit" class="btn btn-primary">Skicka prisförfrågan →</button>
-            <p class="form-note">Vi svarar inom 24 timmar. Fri offert, alltid.</p>
+          <div class="wizard-nav">
+            <button class="btn btn-ghost" onclick="goStep(1)">← Tillbaka</button>
+            <div style="text-align:right;">
+              <button class="btn btn-primary" id="step2-boka-btn" onclick="bokaTid()" disabled>Välj datum →</button>
+              <p class="form-note" id="step2-note" style="margin-top:6px;">Fyll i dina kontaktuppgifter för att kunna boka.</p>
+              <p class="form-note" style="margin-top:4px;color:var(--mid);">Du väljer datum – vi hör av oss för att bestämma exakt tid. Ca 3 tim.</p>
+            </div>
           </div>
-        </form>
+        </div>
 
-        <!-- FÖRETAG FORM -->
-        <form id="form-foretag" class="q-form" onsubmit="handleSubmit(event,'foretag')">
-          <div class="form-grid">
+      </div><!-- /wizard-card -->
 
-            <!-- Window counts -->
-            <div class="fg">
-              <label>Antal fönster *</label>
-              <input type="number" name="antal_fonster" min="1" placeholder="t.ex. 20" required>
-            </div>
-            <div class="fg">
-              <label>Antal fönster MED spröjs</label>
-              <input type="number" name="antal_sprojs" min="0" placeholder="t.ex. 4">
-            </div>
-
-            <!-- Window type -->
-            <div class="fg full">
-              <span class="form-section-label">Typ av fönster *</span>
-              <div class="check-group">
-                <label class="check-label">
-                  <input type="checkbox" name="typ_fonster" value="Enkelglas (Dubbelsidig puts)">
-                  Enkelglas (Dubbelsidig puts)
-                </label>
-                <label class="check-label">
-                  <input type="checkbox" name="typ_fonster" value="Dubbelglas (Fyrsidig puts)">
-                  Dubbelglas (Fyrsidig puts)
-                </label>
-                <label class="check-label">
-                  <input type="checkbox" name="typ_fonster" value="Annat">
-                  Annat (Övrig info)
-                </label>
-              </div>
-            </div>
-
-            <!-- Special areas -->
-            <div class="fg">
-              <label>Inglasad balkong – antal fönster</label>
-              <input type="number" name="balkong" min="0" placeholder="Antal fönster">
-            </div>
-            <div class="fg">
-              <label>Uterum – antal fönster</label>
-              <input type="number" name="uterum" min="0" placeholder="Antal fönster">
-            </div>
-
-            <!-- Karmtvätt -->
-            <div class="fg full">
-              <span class="form-section-label">Önskas karmtvätt? *</span>
-              <div class="check-group" style="flex-direction:row; gap:24px;">
-                <label class="check-label">
-                  <input type="radio" name="karmtvatt" value="Ja" required> Ja
-                </label>
-                <label class="check-label">
-                  <input type="radio" name="karmtvatt" value="Nej"> Nej
-                </label>
-              </div>
-            </div>
-
-            <!-- Notes -->
-            <div class="fg full">
-              <label>Övrig information</label>
-              <textarea name="ovrig_info"
-                placeholder="Berätta gärna om svåra partier, höjder, fasad eller annat vi bör veta."></textarea>
-            </div>
-
-            <!-- Divider -->
-            <div class="fg-full-border"></div>
-
-            <!-- Company info -->
-            <div class="fg full">
-              <label>Företag / Restaurang *</label>
-              <input type="text" name="foretag" placeholder="Ditt AB" required>
-            </div>
-            <div class="fg">
-              <label>Organisationsnummer *</label>
-              <input type="text" name="orgnummer" placeholder="10 siffror" required>
-            </div>
-            <div class="fg">
-              <label>Kontaktperson *</label>
-              <input type="text" name="kontaktperson" placeholder="Namn" required>
-            </div>
-            <div class="fg">
-              <label>Telefon *</label>
-              <input type="tel" name="telefon" placeholder="07X-XXX XX XX" required>
-            </div>
-            <div class="fg">
-              <label>Mail *</label>
-              <input type="email" name="epost" placeholder="info@dittforetag.se" required>
-            </div>
-            <div class="fg">
-              <label>Adress *</label>
-              <input type="text" name="adress" placeholder="Storgatan 1" required>
-            </div>
-            <div class="fg">
-              <label>Postnummer *</label>
-              <input type="text" name="postnummer" placeholder="123 45" required>
-            </div>
-
-          </div>
-          <div class="form-submit">
-            <button type="submit" class="btn btn-primary">Skicka prisförfrågan →</button>
-            <p class="form-note">Vi återkommer inom 24 timmar. Inga dolda kostnader.</p>
-          </div>
-        </form>
-
-      </div>
     </div>
   </section>
 
@@ -1987,66 +2449,153 @@
     }, { threshold: 0.12 });
     fadeEls.forEach(el => obs.observe(el));
 
-    /* ── Tab switcher ── */
-    function setTab(tab) {
-      const tabs = document.querySelectorAll('.tab-btn');
-      const forms = document.querySelectorAll('.q-form');
-      tabs.forEach((btn, i) =>
-        btn.classList.toggle('active', (i === 0 && tab === 'privat') || (i === 1 && tab === 'foretag'))
-      );
-      forms.forEach((f, i) =>
-        f.classList.toggle('active', (i === 0 && tab === 'privat') || (i === 1 && tab === 'foretag'))
-      );
+    function setTab(t) { /* no-op – handled by wizard */ }
+
+    /* ── Wizard ── */
+
+    // TODO: Replace with your Calendly event URL
+    // Example: 'https://calendly.com/as-fonsterfix/fonsterputsning'
+    const CALENDLY_URL = 'https://calendly.com/as-fonsterfix/30min';
+
+    const wiz = { step: 1, w2: 0, ws2: 0, w4: 0, ws4: 0, karm: false, contactType: 'priv' };
+
+    function getWizPrice() {
+      const tw = wiz.w2 + wiz.ws2 + wiz.w4 + wiz.ws4;
+      const sub = wiz.w2 * 60 + wiz.ws2 * 80 + wiz.w4 * 100 + wiz.ws4 * 150 + (wiz.karm ? tw * 20 : 0);
+      return { sub, tw };
     }
 
-    /* ── Form → mailto ── */
-    function handleSubmit(e, type) {
-      e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
+    function adjust(type, delta) {
+      wiz[type] = Math.max(0, wiz[type] + delta);
+      document.getElementById(type + '-val').textContent = wiz[type];
+      document.getElementById('wt-' + type).classList.toggle('has-count', wiz[type] > 0);
+      updatePriceBar1();
+      document.getElementById('step1-next').disabled = (wiz.w2 + wiz.ws2 + wiz.w4 + wiz.ws4) === 0;
+    }
 
-      // Collect checkboxes (multiple values same name)
-      const checked = {};
-      form.querySelectorAll('input[type=checkbox]:checked').forEach(cb => {
-        checked[cb.name] = checked[cb.name] ? checked[cb.name] + ', ' + cb.value : cb.value;
-      });
+    function toggleKarm() {
+      wiz.karm = !wiz.karm;
+      document.getElementById('karm-card').classList.toggle('selected', wiz.karm);
+      document.getElementById('karm-check').textContent = wiz.karm ? '✓' : '';
+      updatePriceBar1();
+    }
 
-      const labels = {
-        antal_fonster: 'Antal fönster',
-        antal_sprojs: 'Antal fönster MED spröjs',
-        typ_fonster: 'Typ av fönster',
-        balkong: 'Inglasad balkong (antal)',
-        uterum: 'Uterum (antal)',
-        karmtvatt: 'Karmtvätt önskas',
-        ovrig_info: 'Övrig information',
-        fornamn: 'Förnamn',
-        efternamn: 'Efternamn',
-        telefon: 'Telefon',
-        epost: 'E-post',
-        personnummer: 'Personnummer',
-        adress: 'Adress',
-        foretag: 'Företag / Restaurang',
-        orgnummer: 'Organisationsnummer',
-        kontaktperson: 'Kontaktperson',
-        postnummer: 'Postnummer',
-      };
+    function updatePriceBar1() {
+      const { sub, tw } = getWizPrice();
+      const amtEl = document.getElementById('step1-price-amount');
+      const subEl = document.getElementById('step1-price-sub');
+      if (tw === 0) { amtEl.innerHTML = '— kr'; subEl.textContent = 'Ange antal fönster ovan'; return; }
+      const fakeTotal = wiz.w2 * 70 + wiz.ws2 * 95 + wiz.w4 * 120 + wiz.ws4 * 175 + (wiz.karm ? tw * 20 : 0);
+      amtEl.innerHTML = `<span class="bar-was">${fakeTotal} kr</span>${sub} kr`;
+      subEl.textContent = tw + ' fönster totalt';
+    }
 
-      let body = type === 'privat'
-        ? 'PRISFÖRFRÅGAN – PRIVATPERSON\n' + '─'.repeat(36) + '\n\n'
-        : 'PRISFÖRFRÅGAN – FÖRETAG\n' + '─'.repeat(36) + '\n\n';
-
-      const seen = new Set();
-      for (let [k, v] of data.entries()) {
-        if (seen.has(k)) continue; // skip checkbox duplicates
-        if (k === 'typ_fonster') { seen.add(k); if (checked[k]) body += (labels[k] || k) + ': ' + checked[k] + '\n'; continue; }
-        seen.add(k);
-        if (v) body += (labels[k] || k) + ': ' + v + '\n';
+    function goStep(n) {
+      const prev = wiz.step;
+      document.getElementById('step-' + prev).classList.remove('active');
+      const prevWs = document.getElementById('ws-' + prev);
+      prevWs.classList.remove('active');
+      if (n > prev) {
+        prevWs.classList.add('done');
+        document.getElementById('wl-' + prev).classList.add('done');
+      } else {
+        document.getElementById('ws-' + n).classList.remove('done');
+        document.getElementById('wl-' + n).classList.remove('done');
       }
+      wiz.step = n;
+      document.getElementById('step-' + n).classList.add('active');
+      document.getElementById('ws-' + n).classList.add('active');
+      if (n === 2) { updateStep2Summary(); checkStep2(); }
+      document.getElementById('offert').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-      const subject = 'Prisförfrågan – ' + (type === 'privat' ? 'Privatperson' : 'Företag');
-      window.location.href =
-        'mailto:as.fonsterfix@gmail.com?subject=' +
-        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    function updateStep2Summary() {
+      const { sub, tw } = getWizPrice();
+      const fakeWindows = wiz.w2 * 70 + wiz.ws2 * 95 + wiz.w4 * 120 + wiz.ws4 * 175;
+      const karmCost = wiz.karm ? tw * 20 : 0;
+      const fakeTotal = fakeWindows + karmCost;
+      const savings = fakeTotal - sub;
+      let html = '';
+      if (wiz.w2 > 0)  html += `<div class="s3-price-row"><span>${wiz.w2} × utan spröjs, 2-sidig</span><span>${wiz.w2 * 60} kr</span></div>`;
+      if (wiz.ws2 > 0) html += `<div class="s3-price-row"><span>${wiz.ws2} × med spröjs, 2-sidig</span><span>${wiz.ws2 * 80} kr</span></div>`;
+      if (wiz.w4 > 0)  html += `<div class="s3-price-row"><span>${wiz.w4} × utan spröjs, 4-sidig</span><span>${wiz.w4 * 100} kr</span></div>`;
+      if (wiz.ws4 > 0) html += `<div class="s3-price-row"><span>${wiz.ws4} × med spröjs, 4-sidig</span><span>${wiz.ws4 * 150} kr</span></div>`;
+      if (wiz.karm)    html += `<div class="s3-price-row"><span>Karmtvätt × ${tw} fönster</span><span>+${karmCost} kr</span></div>`;
+      html += `
+        <div class="s3-price-total">
+          <span>Totalt</span>
+          <div style="text-align:right">
+            <div class="s3-was-total">${fakeTotal} kr</div>
+            <div>${sub} kr</div>
+          </div>
+        </div>
+        <div class="s3-savings-note">Du sparar ${savings} kr – junipris, boka innan det tar slut</div>`;
+      document.getElementById('step2-price-breakdown').innerHTML = html;
+    }
+
+    function setContactType(type, btn) {
+      wiz.contactType = type;
+      document.querySelectorAll('.ct-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('ct-priv').style.display = type === 'priv' ? '' : 'none';
+      document.getElementById('ct-fore').style.display = type === 'fore' ? '' : 'none';
+      checkStep2();
+    }
+
+    function checkStep2() {
+      let ok = false;
+      if (wiz.contactType === 'priv') {
+        ok = !!(
+          (document.getElementById('s3-fornamn')?.value || '').trim() &&
+          (document.getElementById('s3-efternamn')?.value || '').trim() &&
+          (document.getElementById('s3-telefon')?.value || '').trim() &&
+          (document.getElementById('s3-epost')?.value || '').trim() &&
+          (document.getElementById('s3-adress')?.value || '').trim()
+        );
+      } else {
+        ok = !!(
+          (document.getElementById('s3-foretag')?.value || '').trim() &&
+          (document.getElementById('s3-kontakt')?.value || '').trim() &&
+          (document.getElementById('s3-fore-telefon')?.value || '').trim() &&
+          (document.getElementById('s3-fore-epost')?.value || '').trim() &&
+          (document.getElementById('s3-fore-adress')?.value || '').trim()
+        );
+      }
+      document.getElementById('step2-boka-btn').disabled = !ok;
+      document.getElementById('step2-note').textContent = ok
+        ? 'Du skickas till Calendly för att välja ett ledigt datum.'
+        : 'Fyll i dina kontaktuppgifter för att kunna boka.';
+    }
+
+    function bokaTid() {
+      const { sub, tw } = getWizPrice();
+      const parts = ['Fönsterputs'];
+      if (wiz.w2 > 0)  parts.push(`${wiz.w2} fönster utan spröjs 2-sidig`);
+      if (wiz.ws2 > 0) parts.push(`${wiz.ws2} fönster med spröjs 2-sidig`);
+      if (wiz.w4 > 0)  parts.push(`${wiz.w4} fönster utan spröjs 4-sidig`);
+      if (wiz.ws4 > 0) parts.push(`${wiz.ws4} fönster med spröjs 4-sidig`);
+      parts.push('Karmtvätt: ' + (wiz.karm ? 'Ja' : 'Nej'));
+      parts.push(`Totalpris: ${sub} kr (efter RUT-avdrag)`);
+      let name = '', email = '';
+      if (wiz.contactType === 'priv') {
+        name  = (document.getElementById('s3-fornamn').value + ' ' + document.getElementById('s3-efternamn').value).trim();
+        email = document.getElementById('s3-epost').value.trim();
+        parts.push('Adress: ' + document.getElementById('s3-adress').value.trim());
+        parts.push('Tel: ' + document.getElementById('s3-telefon').value.trim());
+        const ov = document.getElementById('s3-ovrig').value.trim();
+        if (ov) parts.push('Övrigt: ' + ov);
+      } else {
+        name  = document.getElementById('s3-kontakt').value.trim();
+        email = document.getElementById('s3-fore-epost').value.trim();
+        parts.push('Företag: ' + document.getElementById('s3-foretag').value.trim() + ' (' + document.getElementById('s3-orgnummer').value.trim() + ')');
+        parts.push('Adress: ' + document.getElementById('s3-fore-adress').value.trim() + ' ' + document.getElementById('s3-postnummer').value.trim());
+        parts.push('Tel: ' + document.getElementById('s3-fore-telefon').value.trim());
+        const ov = document.getElementById('s3-fore-ovrig').value.trim();
+        if (ov) parts.push('Övrigt: ' + ov);
+      }
+      // a1 = first custom question in your Calendly event (e.g. "Bokningsdetaljer")
+      const params = new URLSearchParams({ name, email, a1: parts.join(' | ') });
+      window.open(CALENDLY_URL + '?' + params.toString(), '_blank');
     }
   </script>
 
