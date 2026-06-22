@@ -2151,9 +2151,8 @@
               <div class="wt-card" id="wt-w2">
                 <div class="wt-icon">🪟</div>
                 <div class="wt-info">
-                  <div class="wt-name">Utan spröjs – 2-sidig</div>
-                  <div class="wt-sub">Ej öppningsbar</div>
-                  <div class="wt-price"><span class="wt-was">70 kr</span> 60 kr / fönster</div>
+                  <div class="wt-name">2-sidig fönster</div>
+                  <div class="wt-sub">Utan spröjs, ej öppningsbar</div>
                 </div>
                 <div class="wt-counter">
                   <button type="button" onclick="adjust('w2',-1)">−</button>
@@ -2164,9 +2163,8 @@
               <div class="wt-card" id="wt-ws2">
                 <div class="wt-icon">🪟</div>
                 <div class="wt-info">
-                  <div class="wt-name">Med spröjs – 2-sidig</div>
-                  <div class="wt-sub">Ej öppningsbar med spröjs</div>
-                  <div class="wt-price"><span class="wt-was">95 kr</span> 80 kr / fönster</div>
+                  <div class="wt-name">2-sidig med spröjs</div>
+                  <div class="wt-sub">Utan spröjs, ej öppningsbar</div>
                 </div>
                 <div class="wt-counter">
                   <button type="button" onclick="adjust('ws2',-1)">−</button>
@@ -2177,9 +2175,8 @@
               <div class="wt-card" id="wt-w4">
                 <div class="wt-icon">🪟</div>
                 <div class="wt-info">
-                  <div class="wt-name">Utan spröjs – 4-sidig</div>
-                  <div class="wt-sub">Öppningsbar</div>
-                  <div class="wt-price"><span class="wt-was">120 kr</span> 100 kr / fönster</div>
+                  <div class="wt-name">4-sidig fönster</div>
+                  <div class="wt-sub">Utan spröjs, öppningsbar</div>
                 </div>
                 <div class="wt-counter">
                   <button type="button" onclick="adjust('w4',-1)">−</button>
@@ -2190,14 +2187,25 @@
               <div class="wt-card" id="wt-ws4">
                 <div class="wt-icon">🪟</div>
                 <div class="wt-info">
-                  <div class="wt-name">Med spröjs – 4-sidig</div>
-                  <div class="wt-sub">Öppningsbar med spröjs</div>
-                  <div class="wt-price"><span class="wt-was">175 kr</span> 150 kr / fönster</div>
+                  <div class="wt-name">4-sidig med spröjs</div>
+                  <div class="wt-sub">Med spröjs, öppningsbar</div>
                 </div>
                 <div class="wt-counter">
                   <button type="button" onclick="adjust('ws4',-1)">−</button>
                   <span id="ws4-val">0</span>
                   <button type="button" onclick="adjust('ws4',1)">+</button>
+                </div>
+              </div>
+              <div class="wt-card" id="wt-balk">
+                <div class="wt-icon">🏠</div>
+                <div class="wt-info">
+                  <div class="wt-name">Inglasad balkong</div>
+                  <div class="wt-sub">Pris per ruta</div>
+                </div>
+                <div class="wt-counter">
+                  <button type="button" onclick="adjust('balk',-1)">−</button>
+                  <span id="balk-val">0</span>
+                  <button type="button" onclick="adjust('balk',1)">+</button>
                 </div>
               </div>
             </div>
@@ -2448,12 +2456,26 @@
     // Example: 'https://calendly.com/as-fonsterfix/fonsterputsning'
     const CALENDLY_URL = 'https://calendly.com/as-fonsterfix/30min';
 
-    const wiz = { step: 1, w2: 0, ws2: 0, w4: 0, ws4: 0, karm: false, contactType: 'priv' };
+    const wiz = { step: 1, w2: 0, ws2: 0, w4: 0, ws4: 0, balk: 0, karm: false, contactType: 'priv' };
+
+    function getDiscountRate(tw) {
+      if (tw >= 40) return 0.266;
+      if (tw >= 35) return 0.213;
+      if (tw >= 30) return 0.16;
+      if (tw >= 25) return 0.106;
+      if (tw >= 20) return 0.053;
+      return 0;
+    }
 
     function getWizPrice() {
       const tw = wiz.w2 + wiz.ws2 + wiz.w4 + wiz.ws4;
-      const sub = wiz.w2 * 60 + wiz.ws2 * 80 + wiz.w4 * 100 + wiz.ws4 * 150 + (wiz.karm ? tw * 20 : 0);
-      return { sub, tw };
+      const rate = getDiscountRate(tw);
+      const baseWin = wiz.w2 * 59 + wiz.ws2 * 107 + wiz.w4 * 95 + wiz.ws4 * 143;
+      const baseKarm = wiz.karm ? tw * 40 : 0;
+      const baseBalk = wiz.balk * 175;
+      const discount = Math.round((baseWin + baseKarm) * rate);
+      const sub = baseWin + baseKarm + baseBalk - discount;
+      return { sub, tw, rate, discount };
     }
 
     function adjust(type, delta) {
@@ -2461,7 +2483,7 @@
       document.getElementById(type + '-val').textContent = wiz[type];
       document.getElementById('wt-' + type).classList.toggle('has-count', wiz[type] > 0);
       updatePriceBar1();
-      document.getElementById('step1-next').disabled = (wiz.w2 + wiz.ws2 + wiz.w4 + wiz.ws4) === 0;
+      document.getElementById('step1-next').disabled = (wiz.w2 + wiz.ws2 + wiz.w4 + wiz.ws4 + wiz.balk) === 0;
     }
 
     function toggleKarm() {
@@ -2493,16 +2515,19 @@
     }
 
     function updateStep2Summary() {
-      const { sub, tw } = getWizPrice();
-      const fakeWindows = wiz.w2 * 70 + wiz.ws2 * 95 + wiz.w4 * 120 + wiz.ws4 * 175;
-      const karmCost = wiz.karm ? tw * 20 : 0;
-      const fakeTotal = fakeWindows + karmCost;
+      const { sub, tw, rate, discount } = getWizPrice();
+      const fakeWin = wiz.w2 * 70 + wiz.ws2 * 125 + wiz.w4 * 110 + wiz.ws4 * 165;
+      const fakeKarm = wiz.karm ? tw * 50 : 0;
+      const fakeBalk = wiz.balk * 200;
+      const fakeTotal = fakeWin + fakeKarm + fakeBalk;
       const savings = fakeTotal - sub;
       let html = '';
-      if (wiz.w2 > 0)  html += `<div class="s3-price-row"><span>${wiz.w2} × utan spröjs, 2-sidig</span><span>${wiz.w2 * 60} kr</span></div>`;
-      if (wiz.ws2 > 0) html += `<div class="s3-price-row"><span>${wiz.ws2} × med spröjs, 2-sidig</span><span>${wiz.ws2 * 80} kr</span></div>`;
-      if (wiz.w4 > 0)  html += `<div class="s3-price-row"><span>${wiz.w4} × utan spröjs, 4-sidig</span><span>${wiz.w4 * 100} kr</span></div>`;
-      if (wiz.ws4 > 0) html += `<div class="s3-price-row"><span>${wiz.ws4} × med spröjs, 4-sidig</span><span>${wiz.ws4 * 150} kr</span></div>`;
+      if (wiz.w2 > 0)   html += `<div class="s3-price-row"><span>${wiz.w2} × 2-sidig fönster</span><span>${wiz.w2 * 59} kr</span></div>`;
+      if (wiz.ws2 > 0)  html += `<div class="s3-price-row"><span>${wiz.ws2} × 2-sidig med spröjs</span><span>${wiz.ws2 * 107} kr</span></div>`;
+      if (wiz.w4 > 0)   html += `<div class="s3-price-row"><span>${wiz.w4} × 4-sidig fönster</span><span>${wiz.w4 * 95} kr</span></div>`;
+      if (wiz.ws4 > 0)  html += `<div class="s3-price-row"><span>${wiz.ws4} × 4-sidig med spröjs</span><span>${wiz.ws4 * 143} kr</span></div>`;
+      if (wiz.balk > 0) html += `<div class="s3-price-row"><span>${wiz.balk} × Inglasad balkong</span><span>${wiz.balk * 175} kr</span></div>`;
+      if (discount > 0) html += `<div class="s3-price-row" style="color:var(--blue)"><span>Volymrabatt −${Math.round(rate * 1000) / 10}%</span><span>−${discount} kr</span></div>`;
       html += `
         <div class="s3-price-total">
           <span>Totalt</span>
@@ -2550,13 +2575,15 @@
     }
 
     function bokaTid() {
-      const { sub, tw } = getWizPrice();
+      const { sub, tw, rate, discount } = getWizPrice();
       const parts = ['Fönsterputs'];
-      if (wiz.w2 > 0)  parts.push(`${wiz.w2} fönster utan spröjs 2-sidig`);
-      if (wiz.ws2 > 0) parts.push(`${wiz.ws2} fönster med spröjs 2-sidig`);
-      if (wiz.w4 > 0)  parts.push(`${wiz.w4} fönster utan spröjs 4-sidig`);
-      if (wiz.ws4 > 0) parts.push(`${wiz.ws4} fönster med spröjs 4-sidig`);
+      if (wiz.w2 > 0)   parts.push(`${wiz.w2} × 2-sidig fönster`);
+      if (wiz.ws2 > 0)  parts.push(`${wiz.ws2} × 2-sidig med spröjs`);
+      if (wiz.w4 > 0)   parts.push(`${wiz.w4} × 4-sidig fönster`);
+      if (wiz.ws4 > 0)  parts.push(`${wiz.ws4} × 4-sidig med spröjs`);
+      if (wiz.balk > 0) parts.push(`${wiz.balk} × Inglasad balkong`);
       parts.push('Karmtvätt: ' + (wiz.karm ? 'Ja' : 'Nej'));
+      if (discount > 0) parts.push(`Volymrabatt: −${Math.round(rate * 1000) / 10}% (−${discount} kr)`);
       parts.push(`Totalpris: ${sub} kr (efter RUT-avdrag)`);
       let name = '', email = '';
       if (wiz.contactType === 'priv') {
