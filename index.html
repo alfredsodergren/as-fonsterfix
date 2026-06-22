@@ -2208,13 +2208,6 @@
               </div>
             </div>
           </div>
-          <div class="wizard-price-bar">
-            <div>
-              <div class="wizard-price-sub" id="step1-price-sub">Ange antal fönster ovan</div>
-              <div class="rut-note">Pris efter RUT-avdrag (50%)</div>
-            </div>
-            <div class="wizard-price-amount" id="step1-price-amount">— kr</div>
-          </div>
           <div class="wizard-nav">
             <div></div>
             <button class="btn btn-primary" id="step1-next" onclick="goStep(2)" disabled>Nästa steg →</button>
@@ -2477,15 +2470,7 @@
       updatePriceBar1();
     }
 
-    function updatePriceBar1() {
-      const { sub, tw } = getWizPrice();
-      const amtEl = document.getElementById('step1-price-amount');
-      const subEl = document.getElementById('step1-price-sub');
-      if (tw === 0) { amtEl.innerHTML = '— kr'; subEl.textContent = 'Ange antal fönster ovan'; return; }
-      const fakeTotal = wiz.w2 * 70 + wiz.ws2 * 95 + wiz.w4 * 120 + wiz.ws4 * 175 + (wiz.karm ? tw * 20 : 0);
-      amtEl.innerHTML = `<span class="bar-was">${fakeTotal} kr</span>${sub} kr`;
-      subEl.textContent = tw + ' fönster totalt';
-    }
+    function updatePriceBar1() { /* price shown in step 2 only */ }
 
     function goStep(n) {
       const prev = wiz.step;
