@@ -2467,6 +2467,8 @@
       return 0;
     }
 
+    const MIN_PRICE = 1200;
+
     function getWizPrice() {
       const tw = wiz.w2 + wiz.ws2 + wiz.w4 + wiz.ws4;
       const rate = getDiscountRate(tw);
@@ -2474,8 +2476,10 @@
       const baseKarm = wiz.karm ? tw * 40 : 0;
       const baseBalk = wiz.balk * 175;
       const discount = Math.round((baseWin + baseKarm) * rate);
-      const sub = baseWin + baseKarm + baseBalk - discount;
-      return { sub, tw, rate, discount };
+      const calc = baseWin + baseKarm + baseBalk - discount;
+      const floored = calc > 0 && calc < MIN_PRICE;
+      const sub = floored ? MIN_PRICE : calc;
+      return { sub, tw, rate, discount, floored };
     }
 
     function adjust(type, delta) {
@@ -2515,11 +2519,11 @@
     }
 
     function updateStep2Summary() {
-      const { sub, tw, rate, discount } = getWizPrice();
+      const { sub, tw, rate, discount, floored } = getWizPrice();
       const fakeWin = wiz.w2 * 70 + wiz.ws2 * 125 + wiz.w4 * 110 + wiz.ws4 * 165;
       const fakeKarm = wiz.karm ? tw * 50 : 0;
       const fakeBalk = wiz.balk * 200;
-      const fakeTotal = fakeWin + fakeKarm + fakeBalk;
+      const fakeTotal = Math.max(floored ? MIN_PRICE : 0, fakeWin + fakeKarm + fakeBalk);
       const savings = fakeTotal - sub;
       let html = '';
       if (wiz.w2 > 0)   html += `<div class="s3-price-row"><span>${wiz.w2} × 2-sidig fönster</span><span>${wiz.w2 * 59} kr</span></div>`;
@@ -2528,15 +2532,13 @@
       if (wiz.ws4 > 0)  html += `<div class="s3-price-row"><span>${wiz.ws4} × 4-sidig med spröjs</span><span>${wiz.ws4 * 143} kr</span></div>`;
       if (wiz.balk > 0) html += `<div class="s3-price-row"><span>${wiz.balk} × Inglasad balkong</span><span>${wiz.balk * 175} kr</span></div>`;
       if (discount > 0) html += `<div class="s3-price-row" style="color:var(--blue)"><span>Volymrabatt −${Math.round(rate * 1000) / 10}%</span><span>−${discount} kr</span></div>`;
+      if (floored)      html += `<div class="s3-price-row" style="color:var(--mid);font-style:italic"><span>Minimidebitering</span><span>1 200 kr</span></div>`;
+      const totalHtml = floored || savings <= 0
+        ? `<div>${sub} kr</div>`
+        : `<div class="s3-was-total">${fakeTotal} kr</div><div>${sub} kr</div>`;
       html += `
-        <div class="s3-price-total">
-          <span>Totalt</span>
-          <div style="text-align:right">
-            <div class="s3-was-total">${fakeTotal} kr</div>
-            <div>${sub} kr</div>
-          </div>
-        </div>
-        <div class="s3-savings-note">Du sparar ${savings} kr – junipris, boka innan det tar slut</div>`;
+        <div class="s3-price-total"><span>Totalt</span><div style="text-align:right">${totalHtml}</div></div>`;
+      if (!floored && savings > 0) html += `<div class="s3-savings-note">Du sparar ${savings} kr – junipris, boka innan det tar slut</div>`;
       document.getElementById('step2-price-breakdown').innerHTML = html;
     }
 
@@ -2575,7 +2577,7 @@
     }
 
     function bokaTid() {
-      const { sub, tw, rate, discount } = getWizPrice();
+      const { sub, tw, rate, discount, floored } = getWizPrice();
       const parts = ['Fönsterputs'];
       if (wiz.w2 > 0)   parts.push(`${wiz.w2} × 2-sidig fönster`);
       if (wiz.ws2 > 0)  parts.push(`${wiz.ws2} × 2-sidig med spröjs`);
@@ -2584,6 +2586,7 @@
       if (wiz.balk > 0) parts.push(`${wiz.balk} × Inglasad balkong`);
       parts.push('Karmtvätt: ' + (wiz.karm ? 'Ja' : 'Nej'));
       if (discount > 0) parts.push(`Volymrabatt: −${Math.round(rate * 1000) / 10}% (−${discount} kr)`);
+      if (floored) parts.push('Minimidebitering tillämpas');
       parts.push(`Totalpris: ${sub} kr (efter RUT-avdrag)`);
       let name = '', email = '';
       if (wiz.contactType === 'priv') {
